@@ -17,8 +17,12 @@ export class ItemService {
     return this.itemRepository.save(itemData);
   }
 
-  async findAll(): Promise<Item[]> {
-    return await this.itemRepository.find();
+  async findAll(page: number = 1, limit: number = 10): Promise<Item[]> {
+    const [items] = await this.itemRepository.findAndCount({
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return items;
   }
 
   async findOne(id: number): Promise<Item> {

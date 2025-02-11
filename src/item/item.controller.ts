@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
@@ -30,11 +31,17 @@ export class ItemController {
     return this.itemService.create(createItemDto);
   }
 
+  // @Get()
+  // @ApiOperation({ summary: 'Get all items' })
+  // @ApiResponse({ status: 200, description: 'List of all items.', type: [Item] })
+  // findAll() {
+  //   return this.itemService.findAll();
+  // }
   @Get()
   @ApiOperation({ summary: 'Get all items' })
   @ApiResponse({ status: 200, description: 'List of all items.', type: [Item] })
-  findAll() {
-    return this.itemService.findAll();
+  findAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return this.itemService.findAll(page, limit);
   }
 
   @Get(':id')
