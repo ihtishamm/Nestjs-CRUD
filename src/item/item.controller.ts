@@ -31,12 +31,6 @@ export class ItemController {
     return this.itemService.create(createItemDto);
   }
 
-  // @Get()
-  // @ApiOperation({ summary: 'Get all items' })
-  // @ApiResponse({ status: 200, description: 'List of all items.', type: [Item] })
-  // findAll() {
-  //   return this.itemService.findAll();
-  // }
   @Get()
   @ApiOperation({ summary: 'Get all items' })
   @ApiResponse({ status: 200, description: 'List of all items.', type: [Item] })
