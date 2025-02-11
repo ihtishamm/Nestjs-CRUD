@@ -7,18 +7,21 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Item } from './entities/item.entity';
+import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('items')
 @Controller('item')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   @ApiOperation({ summary: 'Create a new item' })
   @ApiResponse({
@@ -31,6 +34,7 @@ export class ItemController {
     return this.itemService.create(createItemDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   @ApiOperation({ summary: 'Get all items' })
   @ApiResponse({ status: 200, description: 'List of all items.', type: [Item] })
@@ -38,6 +42,7 @@ export class ItemController {
     return this.itemService.findAll(page, limit);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Get a single item by ID' })
   @ApiResponse({ status: 200, description: 'The item found', type: Item })
@@ -46,6 +51,7 @@ export class ItemController {
     return this.itemService.findOne(+id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @ApiOperation({ summary: 'Update an item by ID' })
   @ApiResponse({
@@ -58,6 +64,7 @@ export class ItemController {
     return this.itemService.update(+id, updateItemDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   @ApiOperation({ summary: 'Delete an item by ID' })
   @ApiResponse({
