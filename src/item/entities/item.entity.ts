@@ -8,6 +8,6 @@ export class Item {
   @Column()
   name: string;
 
-  @Column('decimal')
+  @Column()
   price: number;
 }
